@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="/statics/style.css" />
+    <link rel="stylesheet" href="/statics/watch/style.css" />
+    <script type="module">import "/statics/watch/tag.js"</script>
+    <title>{{.Info.Title}} - myvideos</title>
+</head>
+
+<body>
+    <header>
+        <p>myvideos</p>
+    </header>
+    <div class="main">
+        <div id="primary" class="videoviewer">
+            <video width="3000px" controls>
+                <source src="/model/{{index .Info.FilePath 0}}" type="video/mp4">
+            </video>
+            <div id="title">
+                <h1>{{.Info.Title}}</h1>
+                <button>edit title</button>
+            </div>
+            <div class="tagpane">
+                <ul id="taglist" class="tags"></ul>
+                <div class="addtag">
+                    <form id="addtagform">
+                        <label for="tagname">add a tag #</label>
+                        <input type="text" name="tagname">
+                        <input type="submit" value="add">
+                    </form>
+                </div>
+            </div>
+
+            <div class="videometadata">
+                <div class="videoinfo">
+                    <div class="likes">
+                        <button>like</button>
+                        <p>{{.Info.Likes}} likes</p>
+                    </div>
+                    <div class="views">
+                        {{.Info.Views}} views
+                    </div>
+                    <div class="postdate">
+                        {{.Info.PostDate.Format "Jan 2 2006"}}
+                    </div>
+                    <div class="filepath">
+                        {{.Info.FilePath}}
+                    </div>
+                </div>
+                <div class="description">
+                    <form>
+                        <textarea rows="10" readonly>{{printf "%s" .Info.Description}}</textarea>
+                        <button>edit description</button>
+                        <button>save</button>
+                        <button>cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="secondary" class="relatedvideoslist">
+            <div>
+                {{range .RelatedVideos}}<div class="relatedvideo">
+                    <img src="/model/{{.ThumbPath}}" width="1000px">
+                    <div>
+                        <H3>{{.Title}}</h3>
+                        <p>{{.Likes}} likes</p>
+                        <p>{{.Views}} views</p>
+                        <p>{{.PostDate.Format "Jan 2 2006"}}</p>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

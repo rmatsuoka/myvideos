@@ -1,0 +1,101 @@
+.main {
+    background-color: darkred;
+}
+
+.videoviewer {
+    margin: 10px;
+    background-color: cornsilk;
+}
+
+#primary video {
+    margin: 10px auto;
+    max-width: 100%;
+}
+
+#title {
+    display: flex;
+    background-color: rgb(211, 91, 91);
+}
+
+#title button {
+    margin: auto;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.tagpane {
+    margin: 5px;
+    padding: 5px;
+    background-color: aquamarine;
+}
+
+.taglist {
+    margin: 0;
+    min-height: 28px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.tag {
+    list-style: none;
+    float: left;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    padding-left: 12px;
+    padding-right: 28px;
+    position: relative;
+    background-color: rgb(199, 199, 199);
+}
+
+.addtag {
+    clear: both;
+}
+
+.likes {
+    background-color: aqua;
+    display: flex;
+    margin: 10px;
+}
+
+.likes button {
+    margin: 10px;
+}
+
+.description textarea {
+    padding: 10px;
+    min-width: 99%;
+    max-width: 99%;
+    width: 99%;
+}
+
+.videoinfo {
+    background-color: orange;
+    margin: 10px;
+    display: flex;
+}
+
+.relatedvideoslist {
+    margin: 10px;
+    background-color: aquamarine;
+}
+
+.relatedvideo {
+    margin: 5px;
+    background-color: darkgreen;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.relatedvideo img {
+    max-width: 100%;
+    margin: auto;
+}
+
+@media screen and (min-width: 1000px) {
+    .main {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+}
