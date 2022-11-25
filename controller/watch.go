@@ -15,13 +15,13 @@ type WatchPage struct {
 func (h *Handler) WatchHandler(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
 
-	info, err := h.M.VideoInfo(id)
+	info, err := h.M.VideoInfo().Get(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
-	rv, err := h.M.RelatedVideos(id)
+	rv, err := h.M.Search().RelatedTo(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
