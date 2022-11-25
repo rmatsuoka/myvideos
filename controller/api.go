@@ -21,7 +21,7 @@ func (h *Handler) AddTag(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	tag, err := h.M.AddTag(b.VideoID, b.TagName)
+	tag, err := h.M.Tag().Add(b.VideoID, b.TagName)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -45,7 +45,7 @@ func (h *Handler) DeleteTag(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = h.M.DeleteTag(b.VideoID, b.TagID)
+	err = h.M.Tag().Delete(b.VideoID, b.TagID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -64,7 +64,7 @@ func (h *Handler) UpdateVideoInfo(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = h.M.UpdateVideoInfo(b.VideoID, &b.VideoInfo)
+	err = h.M.VideoInfo().Update(b.VideoID, &b.VideoInfo)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -86,7 +86,7 @@ func (h *Handler) IncrementLike(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	i, err := h.M.IncrementLike(b.VideoID)
+	i, err := h.M.VideoInfo().Increment(b.VideoID, model.AttrLikes)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -105,7 +105,7 @@ func (h *Handler) TagsWithVideo(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	t, err := h.M.TagsWithVideo(b.VideoID)
+	t, err := h.M.Tag().WithVideoID(b.VideoID)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
