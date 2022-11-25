@@ -20,6 +20,7 @@ func main() {
 	http.HandleFunc("/api/addtag", h.AddTag)
 	http.HandleFunc("/api/deletetag", h.DeleteTag)
 	http.HandleFunc("/api/tagswithvideo", h.TagsWithVideo)
+	http.HandleFunc("/api/updatevideoinfo", h.UpdateVideoInfo)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

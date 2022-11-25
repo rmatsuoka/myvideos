@@ -107,8 +107,9 @@ func (exampleModel) Tags() ([]*model.Tag, error) {
 }
 
 // Updatemodel.VideoInfo implements Model
-func (exampleModel) UpdateVideoInfo(string, *model.VideoInfo) error {
-	return errNotImplement
+func (exampleModel) UpdateVideoInfo(videoID string, info *model.VideoInfo) error {
+	log.Printf("UpdateVideoInfo(videoID = %s, info = %#v) => nil", videoID, info)
+	return nil
 }
 
 // model.VideoInfo implements Model

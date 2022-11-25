@@ -17,16 +17,10 @@ window.addEventListener("load", () => {
     })
 })
 
-function basename(p) {
-    return p.split(/[\\/]/).pop();
-}
 
-function pathbase() {
-    return basename(window.location.pathname)
-}
 
 function buildTagList() {
-    api.tagsWithVideo(pathbase())
+    api.tagsWithVideo(api.pathbase())
         .then(json => {
             for (let t of json) {
                 appendTagList(t)
@@ -37,7 +31,7 @@ function buildTagList() {
 
 function addTag() {
     const e = addTagForm.elements;
-    api.addTag(pathbase(), e["tagname"].value)
+    api.addTag(api.pathbase(), e["tagname"].value)
         .then(json => {
             appendTagList(json)
         })
@@ -45,7 +39,7 @@ function addTag() {
 }
 
 function deleteTag(elem, tagID) {
-    api.deleteTag(pathbase(), tagID)
+    api.deleteTag(api.pathbase(), tagID)
         .then(text => elem.remove())
         .catch(err => window.alert(err))
 }
