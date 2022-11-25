@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+//go:generate stringer -type Attr
+
 type Tag struct {
 	ID   string
 	Name string
@@ -22,25 +24,31 @@ type VideoInfo struct {
 	Description []byte
 }
 
+type VideoInfoModel interface {
+	Get(videoID string) (*VideoInfo, error)
+	Set(*VideoInfo) (videoID string, err error)
+	Update(videoID string, info *VideoInfo) error
+	Increment(videoID string, attr Attr) (int, error)
+}
+
+type TagModel interface {
+	All() ([]*Tag, error)
+	Delete(videoID string, tagID string) error
+	Add(videoID string, tagName string) (*Tag, error)
+	WithVideoID(videoID string) ([]*Tag, error)
+	WithTagID(tagID string) (*Tag, error)
+}
+
+type SearchModel interface {
+	RelatedTo(videoID string) ([]*VideoInfo, error)
+	LookUpBy(Attr) ([]*VideoInfo, error)
+	BelongingTo(tagID string) ([]*VideoInfo, error)
+}
+
 type Model interface {
-	VideoInfo(videoID string) (*VideoInfo, error)
-	RelatedVideos(videoID string) ([]*VideoInfo, error)
-
-	IncrementLike(videoID string) (int, error)
-	UpdateVideoInfo(videoID string, info *VideoInfo) error
-	SetVideoInfo(*VideoInfo) (videoID string, err error)
-
-	TagsWithVideo(videoID string) ([]*Tag, error)
-	DeleteTag(videoID string, tagID string) error
-	AddTag(videoID string, tagName string) (*Tag, error)
-
-	// return all tags
-	Tags() ([]*Tag, error)
-	VideosWithTag(tagID string) ([]*VideoInfo, error)
-
-	// return 30 videos with Attr
-	LookUpVideosBy(Attr) ([]*VideoInfo, error)
-
+	VideoInfo() VideoInfoModel
+	Tag() TagModel
+	Search() SearchModel
 	// return fs.FS which opens (VideoInfo).FilePath[n]
 	FS() fs.FS
 }
@@ -48,7 +56,7 @@ type Model interface {
 type Attr int
 
 const (
-	AttrDate = iota
+	AttrDate Attr = iota
 	AttrLikes
 	AttrViews
 	AttrRandom
