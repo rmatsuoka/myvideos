@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="/statics/style.css" />
     <link rel="stylesheet" href="/statics/watch/style.css" />
-    <script type="module">import "/statics/watch/tag.js"</script>
+    <script type="module">import "/statics/watch/main.js"</script>
     <title>{{.Info.Title}} - myvideos</title>
 </head>
 
@@ -19,9 +19,9 @@
             <video width="3000px" controls>
                 <source src="/model/{{index .Info.FilePath 0}}" type="video/mp4">
             </video>
-            <div id="title">
-                <h1>{{.Info.Title}}</h1>
-                <button>edit title</button>
+            <div class="title">
+                <h1 id="title">{{.Info.Title}}</h1>
+                <button id="updatetitle">edit title</button>
             </div>
             <div class="tagpane">
                 <ul id="taglist" class="tags"></ul>

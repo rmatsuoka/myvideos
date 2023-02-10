@@ -1,4 +1,11 @@
 
+export function basename(p) {
+    return p.split(/[\\/]/).pop();
+}
+
+export function pathbase() {
+    return basename(window.location.pathname)
+}
 
 const addTagURL = "/api/addtag"
 export async function addTag(path, name) {
@@ -35,4 +42,13 @@ export async function tagsWithVideo(videoID) {
         body: JSON.stringify({videoID})
     })
     return await response.json()
+}
+
+const updateVideoInfoURL = "/api/updatevideoinfo"
+export async function updateVideoInfo(videoID, videoInfo) {
+    const response = await mustFetch(updateVideoInfoURL, {
+        method: "POST",
+        body: JSON.stringify({videoID, videoInfo})
+    })
+    return response.text()
 }
