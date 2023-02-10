@@ -28,7 +28,7 @@ func (exampleModel) Tag() model.TagModel {
 }
 
 // VideoInfo implements model.Model
-func (exampleModel) VideoInfo() model.VideoInfoModel {
+func (exampleModel) VideoInfo() model.VideoModel {
 	return videoInfoModel(0)
 }
 

@@ -19,8 +19,11 @@ func main() {
 	http.Handle("/statics/", http.FileServer(http.Dir(".")))
 	http.HandleFunc("/api/addtag", h.AddTag)
 	http.HandleFunc("/api/deletetag", h.DeleteTag)
-	http.HandleFunc("/api/tagswithvideo", h.TagsWithVideo)
-	http.HandleFunc("/api/updatevideoinfo", h.UpdateVideoInfo)
+
+	v := controller.Video{VideoModel: m.VideoInfo()}
+	http.HandleFunc("/api/videos/info/", v.Info)
+	http.HandleFunc("/api/videos/info", v.SetInfo)
+	http.HandleFunc("/api/videos/description/", v.Description)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
