@@ -14,20 +14,21 @@ type Tag struct {
 }
 
 type VideoInfo struct {
-	ID          string
-	Title       string
-	FilePath    []string
-	ThumbPath   string
-	Likes       int
-	Views       int
-	PostDate    time.Time
-	Description []byte
+	Title     string
+	FilePath  string
+	ThumbPath string
+	Likes     int
+	Views     int
+	PostDate  time.Time
+	Duration  time.Duration
 }
 
-type VideoInfoModel interface {
-	Get(videoID string) (*VideoInfo, error)
-	Set(*VideoInfo) (videoID string, err error)
-	Update(videoID string, info *VideoInfo) error
+type VideoModel interface {
+	Info(videoID string) (*VideoInfo, error)
+	SetInfo(*VideoInfo) (videoID string, err error)
+	UpdateInfo(videoID string, info *VideoInfo) error
+	Description(videoID string) ([]byte, error)
+	SetDescription(videoID string, desc []byte) error
 	Increment(videoID string, attr Attr) (int, error)
 }
 
@@ -46,7 +47,7 @@ type SearchModel interface {
 }
 
 type Model interface {
-	VideoInfo() VideoInfoModel
+	VideoInfo() VideoModel
 	Tag() TagModel
 	Search() SearchModel
 	// return fs.FS which opens (VideoInfo).FilePath[n]

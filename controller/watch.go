@@ -15,7 +15,7 @@ type WatchPage struct {
 func (h *Handler) WatchHandler(w http.ResponseWriter, r *http.Request) {
 	id := path.Base(r.URL.Path)
 
-	info, err := h.M.VideoInfo().Get(id)
+	info, err := h.M.VideoInfo().Info(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
