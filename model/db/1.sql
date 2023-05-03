@@ -1,0 +1,10 @@
+
+DROP TABLE videos;
+CREATE TABLE videos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    title TEXT NOT NULL,
+    file_path TEXT,
+    thumb_path TEXT,
+    create_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    duration INTEGER
+);

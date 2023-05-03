@@ -7,6 +7,6 @@ import (
 )
 
 type Handler struct {
-	M model.Model
+	M *model.Model
 	T *template.Template
 }
